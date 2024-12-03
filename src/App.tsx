@@ -1,26 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Navbar from './components/Navbar';
+import HomePage from './pages/HomePage';
+import CurrentWeather from './pages/CurrentWeather';
+import DailyWeather from './pages/DailyWeather';
+import Configuration from './pages/Configuration';
+import { Container } from '@mui/material';
 
-function App() {
+const App: React.FC = () => {
+  const [currentPage, setCurrentPage] = useState<string>('home');
+
+  const renderPage = () => {
+    switch (currentPage) {
+      case 'home':
+        return <HomePage />;
+      case 'currentWeather':
+        return <CurrentWeather />;
+      case 'dailyWeather':
+        return <DailyWeather />;
+      case 'configuration':
+        return <Configuration />;
+      default:
+        return <HomePage />;
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar onNavClick={setCurrentPage} />
+      <Container maxWidth="md" sx={{ marginTop: 4 }}>
+        {renderPage()}
+      </Container>
     </div>
   );
-}
+};
 
 export default App;
