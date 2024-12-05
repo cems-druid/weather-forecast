@@ -20,11 +20,7 @@ export const weatherData = [
       windDirection10m: 158.1985321044922,
       windGusts10m: 11.159998893737793,
     },
-    // Add more data points if available
   ];
-
-  // src/data.ts
-
 
 
 export const weatherData2: WeatherDataPoint[] = [
@@ -46,5 +42,4 @@ export const weatherData2: WeatherDataPoint[] = [
     windDirection10m: 158.2,
     windGusts10m: 11.16,
   },
-  // Add more data points if available
 ];

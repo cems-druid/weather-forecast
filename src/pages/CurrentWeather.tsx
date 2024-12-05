@@ -14,12 +14,11 @@ import {
   Button,
   CircularProgress,
 } from '@mui/material';
-import { Line } from 'react-chartjs-2';
+
 import { getSelections, updateSelections } from '../services/selectionStorage';
 import dataJson from '../data/data.json'; // Assuming data.json is in the src/data folder
-import ExampleChart from '../components/ExampleChart';
 
-const cities = ['Munich', 'Berlin', 'Tokyo', 'Sydney', 'New York'];
+const cities = ['Munich', 'Berlin', 'Hamburg'];
 
 const CurrentWeather: React.FC = () => {
   const initialSelections = getSelections();
@@ -180,7 +179,6 @@ const CurrentWeather: React.FC = () => {
           </Paper>
         </Grid>
 
-        <ExampleChart/>
       </Grid>
     </Box>
   );
