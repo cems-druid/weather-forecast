@@ -1,0 +1,25 @@
+export interface IDailyWeatherEntity {
+    name: string,
+    latitude: number,
+    longitude: number,
+    selectDate: Date,
+    dailyTime: Date[],
+    weatherCode: number[],
+    temperature2mMax: number[],
+    temperature2mMin: number[],
+    daylightDuration: number[],
+    sunshineDuration: number[],
+    precipitationSum: number[],
+    rainSum: number[],
+    showersSum: number[],
+    snowfallSum: number[],
+    precipitationHours: number[],
+    precipitationProbabilityMax: number[],
+    windSpeed10mMax: number[],
+    windGusts10mMax: number[],
+    windDirection10mDominant: number[],
+    shortwaveRadiationSum: number[],
+    et0FaoEvapotranspiration: number[],
+}
+
+

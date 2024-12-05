@@ -1,13 +1,26 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
-import HomePage from './pages/HomePage';
-import CurrentWeather from './pages/CurrentWeather';
-import DailyWeather from './pages/DailyWeather';
-import Configuration from './pages/Configuration';
+import Navbar from './front-end/components/Navbar';
+import HomePage from './front-end/pages/HomePage';
+import CurrentWeather from './front-end/pages/CurrentWeather';
+import DailyWeather from './front-end/pages/DailyWeather';
+import Configuration from './front-end/pages/Configuration';
 import { Container } from '@mui/material';
+import { connectToMongoDb } from './back-end/database/init-mongodb';
+import { MongoDBService } from "./front-end/services/dbService";
+
 
 const App: React.FC = () => {
+
+  //Connect to DB and disconnect when the app is closed
+  useEffect(() => {
+    MongoDBService.connectToMongoDb();
+    return () => {
+      MongoDBService.closeMongoDbConnection();
+    }
+  }, []);
+
+
   const [currentPage, setCurrentPage] = useState<string>('home');
 
   const renderPage = () => {
