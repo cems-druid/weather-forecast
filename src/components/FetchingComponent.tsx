@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import  DailyWeatherController from "../controllers/dailyWeatherController"; 
+import  WeatherBarChart  from "./ExampleChart";
 
 const AsyncFetchingComponent: React.FC = () => {
     //TODO: Change the type from any to IDailyWeatherEntity
@@ -30,9 +31,9 @@ const AsyncFetchingComponent: React.FC = () => {
     }
 
     return (
-        <div>
+        <div style={{flex:1}}>
             <h2>Weather Data</h2>
-            <pre>{JSON.stringify(data, null, 2)}</pre>
+            <WeatherBarChart data={data}/>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import {
   Box,
   Grid,
@@ -13,11 +13,54 @@ import {
   Paper,
   Button,
   CircularProgress,
+  Grid2,
 } from '@mui/material';
 
 import AsyncFetchingComponent from '../components/FetchingComponent';
 
+
 const cities = ['Munich', 'Berlin', 'Hamburg'];
+
+interface DailyWeatherContextProps {
+  selectedCity: string;
+  //setSelectedCity: React.Dispatch<React.SetStateAction<string>>
+  selectDate: string;
+  //setSelectDate: React.Dispatch<React.SetStateAction<string>>
+  isWeatherCodeChecked: boolean;
+  //setIsWeatherCodeChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isTemperature2mMinChecked: boolean;
+  //setIsTemperature2mMinChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isTemperature2mMaxChecked: boolean;
+  //setIsTemperature2mMaxChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isDaylightDurationChecked: boolean;
+  //setIsDaylightDurationChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isSunshineDurationChecked: boolean;
+  //setIsSunshineDurationChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isPrecipitationSumChecked: boolean;
+  //setIsPrecipitationSumChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isRainSumChecked: boolean;
+  //setIsRainSumChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isShowersSumChecked: boolean;
+  //setIsShowersSumChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isSnowfallSumChecked: boolean;
+  //setIsSnowfallSumChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isPrecipitationHoursChecked: boolean;
+  //setIsPrecipitationHoursChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isPrecipitationProbabilityMaxChecked: boolean;
+  //setIsPrecipitationProbabilityMaxChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isWindSpeed10mMaxChecked: boolean;
+  //setIsWindSpeed10mMaxChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isWindGusts10mMaxChecked: boolean;
+  //setIsWindGusts10mMaxChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isWindDirection10mDominantChecked: boolean;
+  //setIsWindDirection10mDominantChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isShortwaveRadiationSumChecked: boolean;
+  //setIsShortwaveRadiationSumChecked: React.Dispatch<React.SetStateAction<boolean>>
+  isEt0FaoEvapotranspirationChecked: boolean;
+  //setIsEt0FaoEvapotranspirationChecked: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export const DailyWeatherAppContext = createContext<DailyWeatherContextProps | undefined>(undefined);
 
 
 const DailyWeather: React.FC = () => {
@@ -43,14 +86,54 @@ const DailyWeather: React.FC = () => {
   const [isEt0FaoEvapotranspirationChecked, setIsEt0FaoEvapotranspirationChecked] = useState<boolean>(false);
 
 
-const clickFunction = () => {
-  console.log('clicked');
-}
+  const weatherDailyContextValue = {
+    selectedCity,
+    selectDate,
+    isWeatherCodeChecked,
+    isTemperature2mMaxChecked,
+    isTemperature2mMinChecked,
+    isDaylightDurationChecked,
+    isSunshineDurationChecked,
+    isPrecipitationSumChecked,
+    isRainSumChecked,
+    isShowersSumChecked,
+    isSnowfallSumChecked,
+    isPrecipitationHoursChecked,
+    isPrecipitationProbabilityMaxChecked,
+    isWindSpeed10mMaxChecked,
+    isWindGusts10mMaxChecked,
+    isWindDirection10mDominantChecked,
+    isShortwaveRadiationSumChecked,
+    isEt0FaoEvapotranspirationChecked,
 
- 
-return (
+    //setSelectedCity,
+    //setSelectDate,
+    //setIsWeatherCodeChecked,
+    //setIsTemperature2mMaxChecked,
+    //setIsTemperature2mMinChecked,
+    //setIsDaylightDurationChecked,
+    //setIsSunshineDurationChecked,
+    //setIsPrecipitationSumChecked,
+    //setIsRainSumChecked,
+    //setIsShowersSumChecked,
+    //setIsSnowfallSumChecked,
+    //setIsPrecipitationHoursChecked,
+    //setIsPrecipitationProbabilityMaxChecked,
+    //setIsWindSpeed10mMaxChecked,
+    //setIsWindGusts10mMaxChecked,
+    //setIsWindDirection10mDominantChecked,
+    //setIsShortwaveRadiationSumChecked,
+    //setIsEt0FaoEvapotranspirationChecked
+  }
 
-<Box sx={{ flexGrow: 1, padding: 2 }}>
+
+  const clickFunction = () => {
+    console.log('clicked');
+  }
+
+
+  return (
+    <Box sx={{ flexGrow: 2 }}>
       <Grid container spacing={3}>
         {/* First Row: Date Selection */}
 
@@ -96,47 +179,170 @@ return (
                 color="primary"
               />
             }
-            label="isWeatherCodeChecked"
+            label="WeatherCode"
           />
-        </Grid>
 
-
-        {/* Right-Side Information Box */}
-        <Grid item xs={12}>
-          <Paper elevation={3} sx={{ padding: 2, marginTop: 3 }}>
-            <Typography variant="h6">Information Summary</Typography>
-            <Typography variant="body1">
-              <strong>Start Date:</strong> {selectDate || 'Not selected'}
-            </Typography>
-
-            <Typography variant="body1">
-              <strong>Test Checkbox:</strong> {isWeatherCodeChecked ? 'Checked' : 'Not Checked'}
-            </Typography>
-            <Typography variant="body1">
-              <strong>Selected City:</strong> {selectedCity || 'Not selected'}
-            </Typography>
-
-            {/* Button to Fetch Data and Loading Indicator */}
-            <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 2 }}>
-              <Button
-                variant="contained"
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isTemperature2mMaxChecked}
+                onChange={(e) => setIsTemperature2mMaxChecked(e.target.checked)}
                 color="primary"
-                onClick={clickFunction}
-              >
-                Fetch Data and Visualize
-              </Button>
-            </Box>
+              />
+            }
+            label="Temperature2mMax"
+          />
 
-            <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 2 }}>
-              <AsyncFetchingComponent />
-            </Box>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isTemperature2mMinChecked}
+                onChange={(e) => setIsTemperature2mMinChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="Temperature2mMin"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isDaylightDurationChecked}
+                onChange={(e) => setIsDaylightDurationChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="DayLightDuration"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isSunshineDurationChecked}
+                onChange={(e) => setIsSunshineDurationChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="SunshineDuration"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isPrecipitationHoursChecked}
+                onChange={(e) => setIsPrecipitationHoursChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="PrecipitaionHours"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isRainSumChecked}
+                onChange={(e) => setIsRainSumChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="RainSum"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isPrecipitationProbabilityMaxChecked}
+                onChange={(e) => setIsPrecipitationProbabilityMaxChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="PrecipitaionProbabilityMax"
+          />
 
 
-          </Paper>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isWindSpeed10mMaxChecked}
+                onChange={(e) => setIsWindSpeed10mMaxChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="WindSpeed10mMax"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isWindGusts10mMaxChecked}
+                onChange={(e) => setIsWindGusts10mMaxChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="WindGusts10mMax"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isWindDirection10mDominantChecked}
+                onChange={(e) => setIsWindDirection10mDominantChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="WindDirection10mDominant"
+          />
+
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isShortwaveRadiationSumChecked}
+                onChange={(e) => setIsShortwaveRadiationSumChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="ShortwaveRaditation"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={isEt0FaoEvapotranspirationChecked}
+                onChange={(e) => setIsEt0FaoEvapotranspirationChecked(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="Et0FaoEvapotranspiration"
+          />
+
         </Grid>
 
+
+        {/* Information Box */}
+        <Grid item xs={12}>
+          {/* Button to Fetch Data and Loading Indicator */}
+          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={clickFunction}
+            >
+              Fetch Data and Visualize
+            </Button>
+          </Box>
+        </Grid>
       </Grid>
+
+      <Grid2>
+        <DailyWeatherAppContext.Provider value={weatherDailyContextValue}>
+          <Box sx={{ display: 'flex', alignItems: 'center', marginTop: 2 }}>
+            <AsyncFetchingComponent />
+          </Box>
+        </DailyWeatherAppContext.Provider>
+      </Grid2>
     </Box>
+
 
 
   )

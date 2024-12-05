@@ -28,7 +28,7 @@ const App: React.FC = () => {
   return (
     <div>
       <Navbar onNavClick={setCurrentPage} />
-      <Container maxWidth="md" sx={{ marginTop: 4 }}>
+      <Container sx={{ marginTop: 4 }}>
         {renderPage()}
       </Container>
     </div>
